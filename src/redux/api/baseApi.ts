@@ -11,7 +11,7 @@ import {
   import { toast } from 'sonner';
   
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api/v1',
+    baseUrl: 'http://localhost:5000/api',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
@@ -39,7 +39,7 @@ import {
       //* Send Refresh
       console.log('Sending refresh token');
   
-      const res = await fetch('http://localhost:5000/api/v1/auth/refresh-token', {
+      const res = await fetch('http://localhost:5000/api/refresh-token', {
         method: 'POST',
         credentials: 'include',
       });

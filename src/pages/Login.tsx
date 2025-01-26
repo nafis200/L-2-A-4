@@ -1,27 +1,65 @@
-
-
-import PHForm from '../components/form/PHForm';
-import PHInput from '../components/form/PHInput';
-import { FieldValues } from 'react-hook-form';
-
-
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import { useLoginMutation } from "../redux/features/auth/authApi";
+import { verifyToken } from "../utils/verifyToken";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 const Login = () => {
-    const onSubmit = async (data:FieldValues) => {
-        console.log(data);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [login] = useLoginMutation();
+
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data);
+
+    const toastId = toast.loading("Logging in");
+
+    try {
+      const res = await login(data).unwrap();
+
+      console.log(res);
+
+      const user = verifyToken(res?.data?.accessToken);
+
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      toast.success("Logged in", { id: toastId, duration: 2000 });
+
+      navigate("/");
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId, duration: 5000 });
     }
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-full max-w-md rounded-lg bg-gray-100 p-8 shadow-md
+      <div
+        className="w-full max-w-md rounded-lg bg-gray-100 p-8 shadow-md
       xl:-mt-32 lg:-mt-20 
-      ">
+      "
+      >
         <h2 className="text-center text-2xl font-bold text-gray-700">
           Sign In
         </h2>
         <PHForm onSubmit={onSubmit}>
-        <PHInput type="text" name="email" label="Email" placeholder='Enter you email' />
-        <PHInput type="text" name="password" label="Password" placeholder='Enter your password' />
+          <PHInput
+            type="text"
+            name="email"
+            label="Email"
+            placeholder="Enter you email"
+          />
+          <PHInput
+            type="text"
+            name="password"
+            label="Password"
+            placeholder="Enter your password"
+          />
 
           <label className="flex items-center">
             <input
