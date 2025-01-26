@@ -1,61 +1,70 @@
-const Register = () => {
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import { useRegisterMutation } from "../redux/features/auth/authApi";
+import { verifyToken } from "../utils/verifyToken";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
+
+const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [ register ] = useRegisterMutation();
+
+  const onSubmit = async (data: FieldValues) => {
+  
+    const toastId = toast.loading("Logging in");
+
+    try {
+      const res = await register(data).unwrap();
+
+      console.log(res);
+
+      const user = verifyToken(res?.data?.accessToken);
+
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      toast.success("Logged in", { id: toastId, duration: 2000 });
+
+      navigate("/");
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId, duration: 5000 });
+    }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div
         className="w-full max-w-md rounded-lg bg-gray-100 p-8 shadow-md
-      xl:-mt-28 lg:-mt-16
+      xl:-mt-32 lg:-mt-20 
       "
       >
         <h2 className="text-center text-2xl font-bold text-gray-700">
           Sign Up
         </h2>
-        <form className="mt-6 space-y-4">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              className="mt-1 block w-full rounded-md border border-gray-300 bg-blue-50 px-4 py-2 shadow-sm hover:bg-blue-100 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              autoComplete="username"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              className="mt-1 block w-full rounded-md border border-gray-300 bg-blue-50 px-4 py-2 shadow-sm hover:bg-blue-100 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              autoComplete="username"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              className="mt-1 block w-full rounded-md border border-gray-300 bg-blue-50 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              autoComplete="current-password"
-              required
-            />
-          </div>
+        <PHForm onSubmit={onSubmit}>
+          <PHInput
+            type="text"
+            name="name"
+            label="Name"
+            placeholder="Enter you email"
+          />
+          <PHInput
+            type="text"
+            name="email"
+            label="Email"
+            placeholder="Enter you email"
+          />
+          <PHInput
+            type="text"
+            name="password"
+            label="Password"
+            placeholder="Enter your password"
+          />
 
           <label className="flex items-center">
             <input
@@ -64,22 +73,15 @@ const Register = () => {
             />
             <span className="ms-2 text-sm text-gray-600">Remember me</span>
           </label>
-
-          <div className="text-right text-sm">
-            <a href="#" className="text-indigo-600 hover:text-indigo-800">
-              Forgot your password?
-            </a>
-          </div>
-
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white mt-5 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Sign up
+              Sign Up
             </button>
           </div>
-        </form>
+        </PHForm>
         <div className="mt-8 flex justify-center text-center">
           <p className="text-sm font-bold text-gray-600">
             For query, please call:{" "}
@@ -93,4 +95,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

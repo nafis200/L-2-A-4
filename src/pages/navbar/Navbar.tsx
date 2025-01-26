@@ -1,8 +1,21 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout, useCurrentUser } from "../../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login')
+  };
+
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  const user = useAppSelector(useCurrentUser)
 
   return (
     <nav className="bg-gray-800 text-white">
@@ -13,16 +26,20 @@ const Navbar = () => {
         {/* Menu for larger screens */}
         <div className="hidden md:flex gap-4">
           <a href="/" className="hover:text-gray-300">Home</a>
-          <a href="/login" className="hover:text-gray-300">Login</a>
-          <a href="/register" className="hover:text-gray-300">Register</a>
+
+          {
+             !user && <> <a href="/login" className="hover:text-gray-300">Login</a>
+          <a href="/register" className="hover:text-gray-300">Register</a> </>
+          }
+
           <a href="/contact" className="hover:text-gray-300">Contact</a>
         </div>
 
         {/* Login/Logout Button */}
         <div className="hidden md:block">
-          <button className="border border-white text-white px-4 py-2 rounded hover:bg-gray-700">
+          {user && <button onClick={handleLogout} className="btn cursor-pointer border border-white text-white px-4 py-2 rounded hover:bg-gray-700">
             Logout
-          </button>
+          </button>}
         </div>
 
         {/* Hamburger Menu for smaller screens */}
@@ -40,11 +57,12 @@ const Navbar = () => {
           <a href="/about" className="block py-2 hover:text-gray-300">About</a>
           <a href="/services" className="block py-2 hover:text-gray-300">Services</a>
           <a href="/contact" className="block py-2 hover:text-gray-300">Contact</a>
-          <button
-            className="w-full mt-4 border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
+          {user && <button
+           onClick={handleLogout}
+            className="btn cursor-pointer w-full mt-4 border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
           >
             Logout
-          </button>
+          </button>}
         </div>
       )}
     </nav>

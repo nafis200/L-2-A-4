@@ -4,7 +4,7 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { setUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
 
@@ -21,8 +21,6 @@ const Login = () => {
 
     try {
       const res = await login(data).unwrap();
-
-      console.log(res);
 
       const user = verifyToken(res?.data?.accessToken);
 
@@ -79,9 +77,9 @@ const Login = () => {
         </PHForm>
         <div className="mt-8 flex justify-center text-center">
           <p className="text-sm font-bold text-gray-600">
-            For query, please call:{" "}
+            are you not register {" "}{" "}
             <span className="font-semibold text-indigo-600">
-              013 12 xxx xxx
+              <NavLink to='/register'>Register</NavLink>
             </span>
           </p>
         </div>
