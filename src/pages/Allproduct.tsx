@@ -9,7 +9,9 @@ import {
   type TableProps,
 } from "antd";
 
-export type TTableData = Pick<Car, "price" | "model" | "brand" | "category">;
+export type TTableData = Pick<Car, "price" | "model" | "brand" | "category"> & { key: string };
+
+import { useNavigate } from "react-router-dom";
 
 // _id: string;
 //     brand: string;
@@ -30,17 +32,16 @@ const Allproduct = () => {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const {
-    data: CarData,
-    isFetching,
-  } = useGetAllCarsQuery([
+  const navigate = useNavigate();
+
+  const { data: CarData, isFetching } = useGetAllCarsQuery([
     ...(params || []),
     { name: "page", value: pagination.current.toString() },
     { name: "limit", value: pagination.pageSize.toString() },
     { name: "searchTerm", value: searchTerm },
   ]);
 
-  console.log(CarData)
+  console.log(CarData);
 
   const tableData = CarData?.data?.map(
     ({ _id, price, model, brand, category }) => ({
@@ -120,7 +121,11 @@ const Allproduct = () => {
     {
       title: "Action",
       key: "x",
-      render: () => <Button>View</Button>,
+      render: (record: TTableData) => (
+        <Button onClick={() => navigate(`/car-detail/${record.key}`)}>
+          View
+        </Button>
+      ),
     },
   ];
 
@@ -162,12 +167,19 @@ const Allproduct = () => {
   };
 
   return (
-    <>
+    <div className="px-5">
       <Input
-        placeholder="Search by name"
+        placeholder="  Search by brand model category"
         value={searchTerm}
         onChange={handleSearch}
-        style={{ marginBottom: 16, width: 300 }}
+        style={{
+          marginBottom: 16,
+          width: 300,
+          marginTop: 20,
+          padding: 5,
+          borderColor: "green",
+          borderRadius: "16px",
+        }}
       />
 
       <Table
@@ -183,7 +195,7 @@ const Allproduct = () => {
         }}
         onChange={onChange}
       />
-    </>
+    </div>
   );
 };
 

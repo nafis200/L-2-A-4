@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Register from '../pages/Register';
 import Login from '../pages/Login';
 import Allproduct from '../pages/Allproduct';
+import SingleProduct from '../pages/SingleProduct';
 
 const router = createBrowserRouter([
    {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         {
             path:'allproduct',
             element:<Allproduct/>
+        },
+        {
+            path:`/car-detail/:id`,
+            element:<SingleProduct/>
         }
       ]
    }
