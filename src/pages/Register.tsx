@@ -8,6 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { setUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
 
+
+
+
+
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -16,7 +21,7 @@ const Login = () => {
 
   const onSubmit = async (data: FieldValues) => {
   
-    const toastId = toast.loading("Logging in");
+    const toastId = toast.loading("Resigtered");
 
     try {
       const res = await register(data).unwrap();
@@ -26,13 +31,13 @@ const Login = () => {
       const user = verifyToken(res?.data?.accessToken);
 
       dispatch(setUser({ user: user, token: res.data.accessToken }));
-      toast.success("Logged in", { id: toastId, duration: 2000 });
+      toast.success("Register in", { id: toastId, duration: 2000 });
 
       navigate("/");
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty
-    } catch (err) {
-      toast.error("Something went wrong", { id: toastId, duration: 5000 });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err:any) {
+      toast.error(err?.data?.message, { id: toastId, duration: 5000 });
     }
   };
 
