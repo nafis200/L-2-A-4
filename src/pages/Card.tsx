@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useGetAllCarsQuery } from "../redux/features/cars/carsManagement";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const CustomCard = () => {
   const { data: cars, isFetching } = useGetAllCarsQuery(undefined);
@@ -19,6 +20,12 @@ const CustomCard = () => {
       setTotalCars(cars.data.length);
     }
   }, [cars]);
+
+  const navigate = useNavigate();
+
+  const handleViewAll = () => {
+    navigate('/allproduct');
+  };
 
   return (
     <div style={{ padding: "16px" }}>
@@ -79,7 +86,7 @@ const CustomCard = () => {
 
       {totalCars > 6 && (
         <div style={{ textAlign: "center", marginTop: "16px" }}>
-          <Button type="primary">View All</Button>
+          <Button type="primary" onClick={handleViewAll}>View All</Button>
         </div>
       )}
 

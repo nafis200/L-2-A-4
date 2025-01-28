@@ -23,6 +23,7 @@ const Navbar = () => {
         <div className="text-xl font-bold">Bicycle</div>
         <div className="hidden md:flex gap-4">
           <a href="/" className="hover:text-gray-300">Home</a>
+          <a href="/allproduct" className="hover:text-gray-300">All product</a>
 
           {
              !user && <> <a href="/login" className="hover:text-gray-300">Login</a>
