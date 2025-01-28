@@ -82,6 +82,11 @@ const CustomCard = () => {
           <Button type="primary">View All</Button>
         </div>
       )}
+
+     {/* Extra section */}
+
+
+
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import CustomCard from "./Card";
 import Swipper from "./Swipper";
+import Testimonials from "./Testimonials";
 
 
 const Home = () => {
@@ -9,6 +10,9 @@ const Home = () => {
 
     <div className="mt-10">
       <CustomCard/>
+    </div>
+    <div>
+      <Testimonials/>
     </div>
   </div>
   );
