@@ -30,7 +30,7 @@ const Navbar = () => {
           <a href="/register" className="hover:text-gray-300">Register</a> </>
           }
 
-          <a href="/contact" className="hover:text-gray-300">Contact</a>
+          <a href="/about" className="hover:text-gray-300">About</a>
         </div>
         <div className="hidden md:block">
           {user && <button onClick={handleLogout} className="btn cursor-pointer border border-white text-white px-4 py-2 rounded hover:bg-gray-700">

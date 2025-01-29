@@ -8,6 +8,7 @@ import Allproduct from '../pages/Allproduct';
 import SingleProduct from '../pages/SingleProduct';
 import Buynow from '../pages/Buynow';
 import Verify from '../pages/Verify';
+import About from '../pages/About';
 
 const router = createBrowserRouter([
    {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         {
             path:'/',
             element:<Home></Home>
+        },
+        {
+           path:'about',
+           element:<About/>
         },
         {
             path:'register',
