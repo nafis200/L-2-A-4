@@ -6,6 +6,7 @@ import Register from '../pages/Register';
 import Login from '../pages/Login';
 import Allproduct from '../pages/Allproduct';
 import SingleProduct from '../pages/SingleProduct';
+import Buynow from '../pages/Buynow';
 
 const router = createBrowserRouter([
    {
@@ -29,9 +30,14 @@ const router = createBrowserRouter([
             element:<Allproduct/>
         },
         {
-            path:`/car-detail/:id`,
+            path:`car-detail/:id`,
             element:<SingleProduct/>
-        }
+        },
+        {
+            path:`checkout/:id`,
+            element:<Buynow/>
+        },
+       
       ]
    }
 ]);

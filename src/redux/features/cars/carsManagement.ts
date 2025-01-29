@@ -30,10 +30,25 @@ const carManagementApi = baseApi.injectEndpoints({
               };
             },
             providesTags: ['cars'],
-          }),
+        }),
+        getSingleCars: builder.query({
+            query: (args) => {    
+              return {
+                url: `/cars/${args}`,
+                method: 'GET',
+              };
+            },
+            transformResponse: (response: TResponseRedux<Car[]>) => {
+              return {
+                data: response.data,
+              };
+            },
+            providesTags: ['cars'],
+        }),
     })
 })
 
 export const {
-    useGetAllCarsQuery
+    useGetAllCarsQuery,
+    useGetSingleCarsQuery
 } = carManagementApi
