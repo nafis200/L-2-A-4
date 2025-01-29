@@ -51,11 +51,11 @@ const Buynow = () => {
     try {
       const res = await addOrder(orderDetails);
 
-      console.log(res?.data?.data[1]);
-
       if (res?.error) {
         toast.error("Order is not created successfully");
       } else {
+        window.location.href = res?.data?.data[1]
+
         toast.success("Order placed successfully!");
       }
 

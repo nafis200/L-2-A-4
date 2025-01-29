@@ -7,6 +7,7 @@ import Login from '../pages/Login';
 import Allproduct from '../pages/Allproduct';
 import SingleProduct from '../pages/SingleProduct';
 import Buynow from '../pages/Buynow';
+import Verify from '../pages/Verify';
 
 const router = createBrowserRouter([
    {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
             path:`checkout/:id`,
             element:<Buynow/>
         },
+        {
+            path:'order/verify',
+            element:<Verify/>
+        }
+
        
       ]
    }
