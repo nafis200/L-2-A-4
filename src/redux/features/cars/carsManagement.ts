@@ -45,10 +45,24 @@ const carManagementApi = baseApi.injectEndpoints({
             },
             providesTags: ['cars'],
         }),
+        orderCar:builder.mutation({
+          query:(data)=>({
+            url:'/orders',
+            method:'POST',
+            body:data
+          }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          transformResponse: (response: TResponseRedux<any>) => {
+            return {
+              data: response.data,
+            };
+          },
+        })
     })
 })
 
 export const {
     useGetAllCarsQuery,
-    useGetSingleCarsQuery
+    useGetSingleCarsQuery,
+    useOrderCarMutation
 } = carManagementApi

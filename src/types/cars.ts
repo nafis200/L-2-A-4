@@ -13,4 +13,16 @@ export type Car = {
     createdAt: string;
     updatedAt: string;
   };
+
+
+  export interface Order {
+    email: string;
+    car: string;
+    quantity: number;
+    totalPrice: number;
+    name: string;
+    phone_number: string;
+    address: string;
+}
+
   
