@@ -117,6 +117,24 @@ const carManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["cars"],
     }),
+    deleteCar: builder.mutation({
+      query: ({ order_id }) => {
+        console.log(order_id)
+
+        return {
+          url: `/cars/${order_id}`,
+          method: "DELETE",
+        };
+      
+      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformResponse: (response: TResponseRedux<any>) => {
+        return {
+          data: response.data,
+        };
+      },
+      invalidatesTags: ["cars"],
+    }),
     
   }),
 });
@@ -128,5 +146,6 @@ export const {
   useVerifyOrderQuery,
   useOrderRevenueQuery,
   useOrderCarMutation,
-  useUpdateCarMutation
+  useUpdateCarMutation,
+  useDeleteCarMutation
 } = carManagementApi;

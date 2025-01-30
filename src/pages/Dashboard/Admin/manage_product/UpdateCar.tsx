@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGetAllCarsQuery, useUpdateCarMutation } from "../../../../redux/features/cars/carsManagement";
 import { Button, Table, Modal, Form, InputNumber } from "antd";
 import type { TTableData } from "../../../Allproduct";
-
+import { toast } from "sonner";
 const UpdateCar = () => {
   const [selectedCar, setSelectedCar] = useState<TTableData | null>(null);
   const [form] = Form.useForm();
@@ -36,10 +36,12 @@ const UpdateCar = () => {
           data: values,
           order_id: selectedCar.key
         }).unwrap();
+        toast.success("Car updated successfully!");
         setIsModalVisible(false);
         setSelectedCar(null);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.error("Update failed:", error);
+        toast.error("Update failed");
       }
     }
   };
