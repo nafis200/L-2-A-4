@@ -5,7 +5,6 @@ const carManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllCars: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
 
         if (args) {
@@ -100,12 +99,28 @@ const carManagementApi = baseApi.injectEndpoints({
     }),
     updateCar: builder.mutation({
       query: ({ data, order_id }) => {
-        console.log(order_id)
-        console.log(data)
         return {
           url: `/cars/${order_id}`,
           method: "PUT",
           body: data,
+        };
+      
+      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformResponse: (response: TResponseRedux<any>) => {
+        return {
+          data: response.data,
+        };
+      },
+      invalidatesTags: ["cars"],
+    }),
+    createCar: builder.mutation({
+      query: ({carData}) => {
+        console.log(carData)
+        return {
+          url: `/cars`,
+          method: "POST",
+          body: carData,
         };
       
       },
@@ -135,6 +150,36 @@ const carManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["cars"],
     }),
+
+    allsurjopay: builder.query({
+      query: () => ({
+        url: "/orders/Allorder",
+        method: "GET",
+      }),
+      providesTags:['tags']
+    }),
+
+    alluser: builder.query({
+      query: () => ({
+        url: "/alluser",
+        method: "GET",
+      }),
+      providesTags:['tags']
+    }),
+
+    blockedUser: builder.mutation({
+      query: (userId) => {
+        console.log(userId.userId)
+        return {
+          url: `/${userId.userId}`,
+          method: "PUT",
+        };
+      
+      },
+      invalidatesTags: ["tags"],
+    }),
+  
+
     
   }),
 });
@@ -147,5 +192,10 @@ export const {
   useOrderRevenueQuery,
   useOrderCarMutation,
   useUpdateCarMutation,
-  useDeleteCarMutation
+  useDeleteCarMutation,
+  useCreateCarMutation,
+  useAllsurjopayQuery,
+  useAlluserQuery,
+  useBlockedUserMutation
+ 
 } = carManagementApi;

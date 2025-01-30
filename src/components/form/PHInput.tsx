@@ -24,7 +24,7 @@ const PHInput = ({ type, name, label, disabled, placeholder }: TInputProps) => {
               disabled={disabled}
               placeholder={placeholder}
             />
-             {error && <small style={{ color: 'red' }}>{error.message}</small>}
+            {error && <small style={{ color: 'red' }}>{error.message}</small>}
           </Form.Item>
         )}
       />

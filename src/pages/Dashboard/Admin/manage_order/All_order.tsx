@@ -1,10 +1,78 @@
 
-
+import { Table } from "antd";
+import { useAllsurjopayQuery } from "../../../../redux/features/cars/carsManagement";
 
 const All_order = () => {
+    const { data: CarData, isFetching } = useAllsurjopayQuery(undefined);
+
+    
+
+    const columns = [
+        {
+            title: "Name",
+            dataIndex: "name",
+            key: "name",
+        },
+        {
+            title: "Email",
+            dataIndex: "email",
+            key: "email",
+        },
+        {
+            title: "Phone Number",
+            dataIndex: "phone_number",
+            key: "phone_number",
+        },
+        {
+            title: "Address",
+            dataIndex: "address",
+            key: "address",
+        },
+        {
+            title: "Quantity",
+            dataIndex: "quantity",
+            key: "quantity",
+        },
+        {
+            title: "Total Price",
+            dataIndex: "totalPrice",
+            key: "totalPrice",
+        },
+        {
+            title: "Status",
+            dataIndex: "status",
+            key: "status",
+        },
+        {
+            title: "Bank Status",
+            dataIndex: ["transaction", "bank_status"],
+            key: "bank_status",
+        },
+        {
+            title: "Transaction Date",
+            dataIndex: ["transaction", "date_time"],
+            key: "date_time",
+        },
+        {
+            title: "Payment Method",
+            dataIndex: ["transaction", "method"],
+            key: "method",
+        },
+        {
+            title: "SP Code",
+            dataIndex: ["transaction", "sp_code"],
+            key: "sp_code",
+        },
+        {
+            title: "SP Message",
+            dataIndex: ["transaction", "sp_message"],
+            key: "sp_message",
+        },
+    ];
+
     return (
-        <div>
-            <h1>All order</h1>
+        <div style={{ overflowX: "auto" }}>
+            <Table columns={columns} dataSource={CarData?.data || []} loading={isFetching} rowKey="_id" scroll={{ x: true }} />
         </div>
     );
 };

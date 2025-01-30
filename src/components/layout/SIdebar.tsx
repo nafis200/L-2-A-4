@@ -23,9 +23,7 @@ const userRole = {
 const Sidebar = () => {
   const user = useAppSelector(useCurrentUser) as UserType | null;
 
-  const role = user?.role || "admin";
-
-  console.log(role)
+  const role = user?.role;
 
   let sidebarItems: ItemType<MenuItemType>[] = [];
 
@@ -42,8 +40,6 @@ const Sidebar = () => {
       sidebarItems = [];
       break;
   }
-
-  console.log(sidebarItems)
 
   return (
     <Sider

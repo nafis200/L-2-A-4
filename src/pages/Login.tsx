@@ -31,7 +31,12 @@ const Login = () => {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty
     } catch (err) {
-      toast.error("Something went wrong", { id: toastId, duration: 5000 });
+      if (err instanceof Error) {
+        toast.error(err?.message, { id: toastId, duration: 5000 });
+        
+    } else {
+        toast.error("Something went wrong or blocked", { id: toastId, duration: 5000 })
+    }
     }
   };
 
