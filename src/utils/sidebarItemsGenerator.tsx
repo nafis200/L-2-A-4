@@ -1,13 +1,13 @@
 import { TSidebarItem, TUserPath } from '../types';
 import { NavLink } from 'react-router-dom';
 
-export const sidebarItemsGenerator = (items: TUserPath[], role: string) => {
+export const sidebarItemsGenerator = (items: TUserPath[]) => {
 
   const sidebarItems = items.reduce((acc: TSidebarItem[], item) => {
     if (item.path && item.name) {
       acc.push({
         key: item.name,
-        label: <NavLink to={`/dashboard/${role}/${item.path}`}>{item.name}</NavLink>,
+        label: <NavLink to={`/dashboard/${item.path}`}>{item.name}</NavLink>,
       });
     }
 

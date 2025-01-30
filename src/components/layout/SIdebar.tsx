@@ -31,11 +31,11 @@ const Sidebar = () => {
 
   switch (role) {
     case userRole.ADMIN:
-      sidebarItems = (sidebarItemsGenerator(adminChildren, userRole.ADMIN) ||
+      sidebarItems = (sidebarItemsGenerator(adminChildren) ||
         []) as ItemType<MenuItemType>[];
       break;
     case userRole.STUDENT:
-      sidebarItems = (sidebarItemsGenerator(adminChildren, userRole.STUDENT) ||
+      sidebarItems = (sidebarItemsGenerator(adminChildren) ||
         []) as ItemType<MenuItemType>[];
       break;
     default:
@@ -65,7 +65,7 @@ const Sidebar = () => {
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={["4"]}
+        defaultSelectedKeys={["1"]}
         items={sidebarItems}
       />
     </Sider>
