@@ -9,7 +9,7 @@ import {
   type TableProps,
 } from "antd";
 
-export type TTableData = Pick<Car, "price" | "model" | "brand" | "category"> & { key: string };
+export type TTableData = Pick<Car, "price" | "model" | "brand" | "category" | "quantity"> & { key: string };
 
 import { useNavigate } from "react-router-dom";
 
@@ -40,16 +40,14 @@ const Allproduct = () => {
     { name: "limit", value: pagination.pageSize.toString() },
     { name: "searchTerm", value: searchTerm },
   ]);
-
-  console.log(CarData);
-
   const tableData = CarData?.data?.map(
-    ({ _id, price, model, brand, category }) => ({
+    ({ _id, price, model, brand, category,quantity }) => ({
       key: _id,
       price,
       model,
       brand,
       category,
+      quantity
     })
   );
 
@@ -118,6 +116,11 @@ const Allproduct = () => {
         { text: "Sedan", value: "Sedan" },
       ],
     },
+    {
+      title:"Quantity",
+      key:'quantity',
+      dataIndex:'quantity'
+   },
     {
       title: "Action",
       key: "x",
