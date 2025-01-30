@@ -7,6 +7,8 @@ import { verifyToken } from "../utils/verifyToken";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
+import LoginSchema from "../schemas/LoginValidation";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const Login = () => {
         <h2 className="text-center text-2xl font-bold text-gray-700">
           Sign In
         </h2>
-        <PHForm onSubmit={onSubmit}>
+        <PHForm onSubmit={onSubmit} resolver={zodResolver(LoginSchema)}>
           <PHInput
             type="text"
             name="email"
