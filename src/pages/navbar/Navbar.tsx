@@ -20,10 +20,11 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-white">
       <div className="container mx-auto flex justify-between items-center p-4">
-        <div className="text-xl font-bold">Bicycle</div>
+        <div className="text-xl font-bold">Cars</div>
         <div className="hidden md:flex gap-4">
           <a href="/" className="hover:text-gray-300">Home</a>
           <a href="/allproduct" className="hover:text-gray-300">All product</a>
+          <a href="/dashboard" className="hover:text-gray-300">Dashboard</a>
 
           {
              !user && <> <a href="/login" className="hover:text-gray-300">Login</a>

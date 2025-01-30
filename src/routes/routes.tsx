@@ -9,6 +9,9 @@ import SingleProduct from '../pages/SingleProduct';
 import Buynow from '../pages/Buynow';
 import Verify from '../pages/Verify';
 import About from '../pages/About';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import { routeGenerator } from '../utils/routesGenerator';
+import { adminChildren } from './Adminroutes';
 
 const router = createBrowserRouter([
    {
@@ -47,9 +50,12 @@ const router = createBrowserRouter([
             path:'order/verify',
             element:<Verify/>
         }
-
-       
       ]
+   },
+   {
+     path:'/dashboard',
+     element:<Dashboard/>,
+     children:routeGenerator(adminChildren)
    }
 ]);
 
