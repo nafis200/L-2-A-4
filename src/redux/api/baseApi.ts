@@ -11,7 +11,7 @@ import {
   import { toast } from 'sonner';
   
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api',
+    baseUrl: 'https://carmodelbackend.vercel.app/api',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
@@ -39,7 +39,7 @@ import {
       //* Send Refresh
       console.log('Sending refresh token');
   
-      const res = await fetch('http://localhost:5000/api/refresh-token', {
+      const res = await fetch('https://carmodelbackend.vercel.app/api/refresh-token', {
         method: 'POST',
         credentials: 'include',
       });
@@ -71,7 +71,7 @@ import {
   export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes:['cars','tags'],
+    tagTypes:['cars','tags','reset'],
     endpoints: () => ({}),
   });
   

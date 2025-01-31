@@ -12,6 +12,8 @@ import About from '../pages/About';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import { routeGenerator } from '../utils/routesGenerator';
 import { adminChildren } from './Adminroutes';
+import { userChildren } from './UserRoutes';
+import ProtectedRoute from '../components/layout/ProtectedRoute';
 
 const router = createBrowserRouter([
    {
@@ -44,18 +46,23 @@ const router = createBrowserRouter([
         },
         {
             path:`checkout/:id`,
-            element:<Buynow/>
+            element:<ProtectedRoute><Buynow/></ProtectedRoute>
         },
         {
             path:'order/verify',
-            element:<Verify/>
+            element:<ProtectedRoute><Verify/></ProtectedRoute>
         }
       ]
    },
    {
      path:'/dashboard',
-     element:<Dashboard/>,
+     element:<ProtectedRoute><Dashboard/></ProtectedRoute>,
      children:routeGenerator(adminChildren)
+   },
+   {
+     path:'/dashboard',
+     element:<ProtectedRoute><Dashboard/></ProtectedRoute>,
+     children:routeGenerator(userChildren)
    }
 ]);
 

@@ -4,6 +4,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { useCurrentUser } from "../../redux/features/auth/authSlice";
 import { adminChildren } from "../../routes/Adminroutes";
 import type { ItemType, MenuItemType } from "antd/es/menu/interface";
+import { userChildren } from "../../routes/UserRoutes";
 
 type UserType = {
   email: string;
@@ -16,8 +17,7 @@ const { Sider } = Layout;
 
 const userRole = {
   ADMIN: "admin",
-  FACULTY: "faculty",
-  STUDENT: "student",
+  USER:"user"
 };
 
 const Sidebar = () => {
@@ -32,8 +32,8 @@ const Sidebar = () => {
       sidebarItems = (sidebarItemsGenerator(adminChildren) ||
         []) as ItemType<MenuItemType>[];
       break;
-    case userRole.STUDENT:
-      sidebarItems = (sidebarItemsGenerator(adminChildren) ||
+    case userRole.USER:
+      sidebarItems = (sidebarItemsGenerator(userChildren) ||
         []) as ItemType<MenuItemType>[];
       break;
     default:
@@ -49,14 +49,14 @@ const Sidebar = () => {
     >
       <div
         style={{
-          color: "white",
-          height: "4rem",
+          color: "black",
+          height: "1rem",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <h1>Car shops</h1>
+        <h1>.</h1>
       </div>
       <Menu
         theme="dark"

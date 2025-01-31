@@ -27,6 +27,16 @@ const carManagementApi = baseApi.injectEndpoints({
       },
       providesTags: ["cars"],
     }),
+    getOwnCars: builder.query({
+      query: () => {
+        
+        return {
+          url: "/cars/own",
+          method: "GET",
+        };
+      },
+      providesTags: ["cars"],
+    }),
     getSingleCars: builder.query({
       query: (args) => {
         return {
@@ -196,6 +206,7 @@ export const {
   useCreateCarMutation,
   useAllsurjopayQuery,
   useAlluserQuery,
-  useBlockedUserMutation
+  useBlockedUserMutation,
+  useGetOwnCarsQuery
  
 } = carManagementApi;
