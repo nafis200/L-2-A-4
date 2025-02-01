@@ -54,20 +54,39 @@ const Navbars = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           {menuOpen && (
-            <div className="md:hidden bg-gray-700 text-white p-4">
-              <a href="/" className="block py-2 hover:text-gray-300">Home</a>
-              <a href="/about" className="block py-2 hover:text-gray-300">About</a>
-              <a href="/services" className="block py-2 hover:text-gray-300">Services</a>
-              <a href="/contact" className="block py-2 hover:text-gray-300">Contact</a>
-              {user && (
-                <button
-                  onClick={handleLogout}
-                  className="btn cursor-pointer w-full mt-4 border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
-                >
-                  Logout
-                </button>
-              )}
-            </div>
+            <div className="md:hidden bg-gray-700 text-white p-4 grid grid-col-1 space-y-2">
+          <a href="/" className="block py-2 hover:text-gray-300">
+            Home
+          </a>
+          <a href="/allproduct" className="hover:text-gray-300">
+            All product
+          </a> 
+          <a href="/dashboard" className=" hover:text-gray-300">
+            Dashboard
+          </a>
+          {!user && (
+            <>
+              {" "}
+              <a href="/login" className="hover:text-gray-300">
+                Login
+              </a>
+              <a href="/register" className="hover:text-gray-300">
+                Register
+              </a>{" "}
+            </>
+          )}
+          <a href="/about" className="block py-2 hover:text-gray-300">
+            About
+          </a>
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="btn cursor-pointer w-full mt-4 border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              Logout
+            </button>
+          )}
+        </div>
           )}
         </nav>
         <div className="w-full min-h-screen">
