@@ -63,7 +63,7 @@ const Acctivate_account = () => {
 
     return (
         <div>
-            <Table columns={columns} loading={isFetching} dataSource={Alluser?.data || []} rowKey="_id" />
+            <Table columns={columns} loading={isFetching} dataSource={Alluser?.data || []} rowKey="_id" scroll={{ x: 800 }} />
         </div>
     );
 };

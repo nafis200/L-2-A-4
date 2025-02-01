@@ -176,6 +176,7 @@ const GetAllCar = () => {
           pageSizeOptions: ["2", "4", "6", "8", "10"],
         }}
         onChange={onChange}
+        scroll={{ x: 800 }}
       />
     </div>
   )

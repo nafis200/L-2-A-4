@@ -114,7 +114,7 @@ const CreateCar = () => {
         defaultValues={defaultValues}
       >
         <Row gutter={[16, 16]}>
-          <Col xs={24} lg={12}>
+          <Col className="mt-20 lg:mt-0 md:mt-0" xs={24} lg={12}>
             <PHInput
               type="text"
               name="brand"

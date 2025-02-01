@@ -87,6 +87,7 @@ const UpdateCar = () => {
         loading={isFetching}
         columns={columns}
         dataSource={tableData}
+        scroll={{ x: 800 }}
         rowKey="key"
       />
       <Modal
