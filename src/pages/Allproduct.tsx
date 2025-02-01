@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { Car, TQueryParam } from "../types";
 import { useGetAllCarsQuery } from "../redux/features/cars/carsManagement";
@@ -19,7 +18,7 @@ export type TTableData = Pick<
 > & { key: string };
 
 const Allproduct = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+  const [params] = useState<TQueryParam[] | undefined>(undefined);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   const [searchTerm, setSearchTerm] = useState<string>("");
 
