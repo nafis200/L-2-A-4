@@ -55,7 +55,7 @@ const CreateCar = () => {
 
       const uploadImageUrl = await res.json();
 
-      setImageUrl(uploadImageUrl.url);
+      setImageUrl(uploadImageUrl.url + "?w=300&h=260&crop=fill");
     } catch (error) {
       console.error("Error uploading image:", error);
     }

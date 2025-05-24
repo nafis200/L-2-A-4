@@ -8,13 +8,20 @@ import {
   Pagination,
   type TableColumnsType,
   type TableProps,
+  message,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./pagination.css";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../redux/hooks";
+import {
+  addProduct,
+  orderedProductsSelector,
+} from "../redux/features/cars/carSlice";
 
 export type TTableData = Pick<
   Car,
-  "price" | "model" | "brand" | "category" | "quantity"
+  "price" | "model" | "brand" | "category" | "quantity" | "image"
 > & { key: string };
 
 const Allproduct = () => {
@@ -31,16 +38,36 @@ const Allproduct = () => {
     { name: "searchTerm", value: searchTerm },
   ]);
 
+  const dispatch = useDispatch();
+  const products = useAppSelector(orderedProductsSelector);
+
+  
+
   const tableData = CarData?.data?.map(
-    ({ _id, price, model, brand, category, quantity }) => ({
+    ({ _id, price, model, brand, category, quantity,image }) => ({
       key: _id,
       price,
       model,
       brand,
       category,
       quantity,
+      image
     })
   );
+
+  const onAddToCart = (item: TTableData) => {
+    console.log(item);
+    if (products.length === 0) {
+      dispatch(addProduct(item));
+      message.success("successfully add products");
+      navigate('/stores')
+    } else {
+      setTimeout(()=>{
+          message.error("first you payment your product then give new order");
+      },2000)
+      navigate('/stores')
+    }
+  };
 
   const columns: TableColumnsType<TTableData> = [
     {
@@ -72,9 +99,17 @@ const Allproduct = () => {
       title: "Action",
       key: "x",
       render: (record: TTableData) => (
-        <Button onClick={() => navigate(`/car-detail/${record.key}`)}>
-          View
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            type="primary"
+            onClick={() => navigate(`/car-detail/${record.key}`)}
+          >
+            View
+          </Button>
+          <Button type="default" onClick={() => onAddToCart(record)}>
+            Add to Cart
+          </Button>
+        </div>
       ),
     },
   ];
@@ -130,9 +165,11 @@ const Allproduct = () => {
           total={CarData?.meta?.total}
           showSizeChanger={true}
           showQuickJumper={true}
-          responsive={false} 
-          pageSizeOptions={["2", "4", "6", "8", "10"]} 
-          onChange={(page, pageSize) => setPagination({ current: page, pageSize })}
+          responsive={false}
+          pageSizeOptions={["2", "4", "6", "8", "10"]}
+          onChange={(page, pageSize) =>
+            setPagination({ current: page, pageSize })
+          }
         />
       </div>
     </div>

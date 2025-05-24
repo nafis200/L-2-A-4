@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   useGetSingleCarsQuery,
@@ -6,16 +5,23 @@ import {
 } from "../redux/features/cars/carsManagement";
 import { Spin, Input, Button, Card, Typography, Form } from "antd";
 import { toast } from "sonner";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  orderedProductsSelector,
+  removeProduct,
+} from "../redux/features/cars/carSlice";
 
 const { Title, Text } = Typography;
 
 const Buynow = () => {
+  const products = useAppSelector(orderedProductsSelector);
+  const dispatch = useAppDispatch();
+  const product = products?.[0];
   const { id } = useParams();
   const { data: CarData, isFetching } = useGetSingleCarsQuery([id]);
 
   const [addOrder] = useOrderCarMutation();
 
-  const [quantity, setQuantity] = useState(1);
   const [form] = Form.useForm();
 
   if (isFetching) {
@@ -34,17 +40,13 @@ const Buynow = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOrderSubmit = async (values: any) => {
-    if (quantity > car.quantity) {
-      toast.error("Ordered quantity exceeds available stock!");
-      return;
-    }
     const orderDetails = {
       email: values.email,
       name: values.name,
       phone_number: values.phone,
       address: values.address,
       car: car._id,
-      quantity: quantity,
+      quantity: product.orderQuantity,
       totalPrice: car.price,
     };
 
@@ -54,9 +56,10 @@ const Buynow = () => {
       if (res?.error) {
         toast.error("Order is not created successfully");
       } else {
-        window.location.href = res?.data?.data[1]
+        window.location.href = res?.data?.data[1];
 
         toast.success("Order placed successfully!");
+        dispatch(removeProduct(id));
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty
@@ -128,19 +131,11 @@ const Buynow = () => {
             />
           </Form.Item>
 
-          <Form.Item label="Quantity">
-            <Input
-              type="number"
-              min={1}
-              // max={car.quantity}
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
-            />
-          </Form.Item>
-
           <Text strong className="block text-lg">
             Total Price:{" "}
-            <span className="text-green-600">${car.price * quantity}</span>
+            <span className="text-green-600">
+              ${car.price * product.orderQuantity}
+            </span>
           </Text>
 
           <div className="flex justify-center mt-4">
