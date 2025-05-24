@@ -1,5 +1,6 @@
 import OrderProduct from "./OrderProduct";
-import PaymentDetails from "./paymentDetails";
+import PaymentDetails from "./PaymentDetails";
+
 
 const Card_product_show = () => {
   return (

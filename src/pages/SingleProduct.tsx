@@ -51,7 +51,7 @@ const SingleProduct = () => {
                 <Text strong className="block text-lg">Stock: <Text className={car?.inStock ? "text-green-500" : "text-red-800"}>{car?.quantity ? "Available" : "Out of Stock"}</Text></Text>
                 <div className="flex justify-center mt-6">
                     <Button type="primary" size="large" onClick={()=>handleBuyNow(car)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
-                        Buy Now
+                        Add to Cart
                     </Button>
                 </div>
             </Card>
