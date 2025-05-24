@@ -36,6 +36,9 @@ const Navbar = () => {
           <a href="/dashboard" className="hover:text-gray-300">
             Dashboard
           </a>
+          <a href="/contact" className="hover:text-gray-300">
+            Contact us
+          </a>
 
           {!user && (
             <>

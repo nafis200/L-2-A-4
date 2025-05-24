@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { DollarSign, Users } from "lucide-react";
 import { Card, Col, Row, Spin, Typography } from "antd";
 import {

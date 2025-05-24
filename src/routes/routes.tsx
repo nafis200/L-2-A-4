@@ -14,6 +14,7 @@ import { adminChildren } from "./Adminroutes";
 import { userChildren } from "./UserRoutes";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import Card_product_show from "../pages/Card_product_show";
+import Contact from "../pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: `car-detail/:id`,
         element: <SingleProduct />,
+      },
+      {
+        path: `contact`,
+        element: <Contact />,
       },
       {
         path: `checkout/:id`,

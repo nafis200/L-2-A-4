@@ -17,7 +17,7 @@ const Swipper = () => {
           <SwiperSlide>
             <div className="relative">
               <img
-                className="lg:w-full lg:h-[550px]"
+                className="lg:w-full lg:h-[480px]"
                 src="https://i.postimg.cc/6pxW43YZ/pexels-photo-6462662.jpg"
                 alt=""
               />
@@ -33,7 +33,7 @@ const Swipper = () => {
           <SwiperSlide>
             <div className="relative">
               <img
-                className="lg:w-full w-full lg:h-[550px]"
+                className="lg:w-full w-full lg:h-[480px]"
                 src="https://i.postimg.cc/Fspfv09R/pexels-photo-2127733.jpg"
                 alt=""
               />
@@ -42,7 +42,7 @@ const Swipper = () => {
           <SwiperSlide>
             <div className="relative">
               <img
-                className="lg:w-full w-full lg:h-[550px]"
+                className="lg:w-full w-full lg:h-[480px]"
                 src="https://i.postimg.cc/05mWVy9Z/pexels-photo-2896135.jpg"
                 alt=""
               />

@@ -55,7 +55,7 @@ const testimonials = [
 const Testimonials = () => {
   return (
     <div style={{ padding: "16px", textAlign: "center" }}>
-      {/* Title and Description */}
+  
       <div style={{ marginBottom: "32px" }}>
         <h2 style={{ fontSize: "28px", fontWeight: "bold" }}>What Our Happy Customers Say</h2>
         <p style={{ fontSize: "16px", color: "#555" }}>
@@ -63,7 +63,6 @@ const Testimonials = () => {
         </p>
       </div>
 
-      {/* Testimonials Grid */}
       <Row
         gutter={[16, 16]}
         style={{
