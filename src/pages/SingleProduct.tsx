@@ -1,13 +1,16 @@
-import { Card, Typography, Spin, Button } from "antd";
+import { Card, Typography, Spin, Button, message } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetSingleCarsQuery } from "../redux/features/cars/carsManagement";
 import type { Car } from "../types";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/features/cars/carSlice";
 
 const { Title, Text } = Typography;
 
 const SingleProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { data: CarData, isFetching } = useGetSingleCarsQuery([id]);
 
     if (isFetching) {
@@ -23,9 +26,13 @@ const SingleProduct = () => {
     }
 
     const car = CarData?.data[0] as Car;
+    
 
-    const handleBuyNow = () => {
-        navigate(`/checkout/${car?._id}`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleBuyNow = (item:any) => {
+        dispatch(addProduct(item));
+              message.success("successfully add products");
+              navigate('/stores')
     };
 
     return (
@@ -43,7 +50,7 @@ const SingleProduct = () => {
                 <Text strong className="block text-lg">Description: <Text>{car?.description}</Text></Text>
                 <Text strong className="block text-lg">Stock: <Text className={car?.inStock ? "text-green-500" : "text-red-800"}>{car?.quantity ? "Available" : "Out of Stock"}</Text></Text>
                 <div className="flex justify-center mt-6">
-                    <Button type="primary" size="large" onClick={handleBuyNow} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                    <Button type="primary" size="large" onClick={()=>handleBuyNow(car)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
                         Buy Now
                     </Button>
                 </div>
