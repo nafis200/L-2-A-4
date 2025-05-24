@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Car, TQueryParam } from "../types";
 import { useGetAllCarsQuery } from "../redux/features/cars/carsManagement";
-import { Button, Input, Pagination, message, Row, Col, Card } from "antd";
+import { Button, Input, Pagination, message, Card } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../redux/hooks";
@@ -9,11 +9,15 @@ import { addProduct, orderedProductsSelector } from "../redux/features/cars/carS
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaDollarSign, FaPlusCircle } from "react-icons/fa";
 import FilterPanel from "./Filtered";
+import { motion } from "framer-motion";
 
-export type TTableData = Pick<
-  Car,
-  "price" | "model" | "brand" | "category" | "quantity" | "image"
-> & { key: string };
+export type TTableData = Omit<
+  Pick<Car, "price" | "model" | "brand" | "category" | "quantity" | "image">,
+  "image"
+> & {
+  image?: string;
+  key: string;
+};
 
 const AllProduct = () => {
   const navigate = useNavigate();
@@ -110,14 +114,10 @@ const AllProduct = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
- 
-
   const handleFilterChange = (name: string, value: string | number) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
-
-   
 
   return (
     <div className="px-5">
@@ -138,24 +138,23 @@ const AllProduct = () => {
         />
       </div>
 
-      <Row
-        gutter={[16, 16]}
-        justify="start"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "16px",
-        }}
-      >
-        {tableData.map((product) => (
-          <Col key={product.key}>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {tableData.map((product, index) => (
+          <motion.div
+            key={product.key}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, duration: 0.4 }}
+            whileHover={{ scale: 1.03 }}
+            className="transition-transform duration-300"
+          >
             <Card
               loading={isFetching}
               cover={
                 <img
                   alt={product.model}
                   src={product.image}
-                  style={{ width: "100%", height: "200px", objectFit: "cover" }}
+                  className="w-full h-[200px] object-cover rounded-t-md hover:opacity-90 transition-opacity duration-300"
                 />
               }
               style={{
@@ -192,9 +191,9 @@ const AllProduct = () => {
                 </div>
               </div>
             </Card>
-          </Col>
+          </motion.div>
         ))}
-      </Row>
+      </div>
 
       <div className="pagination-container mt-5 mb-5 flex justify-center">
         <Pagination

@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "@types/jsonwebtoken": "^9.0.8",
     "antd": "^5.23.0",
+    "framer-motion": "^12.12.2",
     "hook-form": "^0.0.1",
     "icons": "^1.0.0",
     "jsonwebtoken": "^9.0.2",

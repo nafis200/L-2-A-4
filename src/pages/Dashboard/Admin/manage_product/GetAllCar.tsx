@@ -26,7 +26,7 @@ const GetAllCar = () => {
       model,
       brand,
       category,
-      quantity
+      quantity,
     })
   );
 
