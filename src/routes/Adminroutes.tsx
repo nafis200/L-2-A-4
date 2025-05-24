@@ -5,9 +5,21 @@ import DeleteCar from "../pages/Dashboard/Admin/manage_product/DeleteCar";
 import GetAllCar from "../pages/Dashboard/Admin/manage_product/GetAllCar";
 import UpdateCar from "../pages/Dashboard/Admin/manage_product/UpdateCar";
 import Acctivate_account from "../pages/Dashboard/Admin/manage_user/Acctivate_account";
+import AdminProfile from "../pages/Dashboard/Admin/profile/AdminProfile";
+import DashboardHome from "../pages/Dashboard/DashboardHome";
 
 
 export const adminChildren = [
+    {
+        name:'Dashboard_Home',
+        path:'dashboard_home',
+        element:<DashboardHome/>
+    },
+    {
+        name:'AdminProfile',
+        path:'admin_profile',
+        element:<AdminProfile/>
+    },
     {
         name:'Manage_user',
         path:'manage_user',

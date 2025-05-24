@@ -15,18 +15,24 @@ type UserType = {
 const Dashboard = () => {
 
      const user = useAppSelector(useCurrentUser) as UserType | null;
+
+ 
+
     
       const role = user?.role;
 
     const navigate = useNavigate();
+    
     useEffect(() => {
         if(role === 'admin'){
-            navigate('/dashboard/get_car');
+            navigate('/dashboard/dashboard_home');
         }
         else{
-            navigate('/dashboard/change_password');
+            navigate('/dashboard/user_dashboard_home');
+            
         }
     }, [navigate,role]);
+    
     return (
         <Navbars>
             <MainLayout/>

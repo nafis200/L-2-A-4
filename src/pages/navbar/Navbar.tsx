@@ -17,7 +17,7 @@ const Navbar = () => {
   const user = useAppSelector(useCurrentUser);
 
   return (
-    <nav className="bg-gray-800 text-white">
+    <nav className="bg-gray-500 text-white lg:sticky top-0 z-20">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div>
           <img

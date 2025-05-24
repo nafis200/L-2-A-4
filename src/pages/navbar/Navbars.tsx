@@ -18,7 +18,7 @@ const Navbars = ({ children }: { children: React.ReactNode }) => {
   
     return (
       <>
-        <nav className="bg-gray-800 text-white w-full">
+        <nav className="bg-gray-500 text-white lg:sticky top-0 z-20 w-full">
           <div className="container mx-auto flex justify-between items-center p-4">
             <div>
               <img src="https://i.postimg.cc/C5SrMXNd/car.png" alt="Cars" className="w-16 h-16 ml-5" />

@@ -98,7 +98,7 @@ const Login = () => {
           </div>
         </PHForm>
 
-        {/* Buttons below the form */}
+      
         <div className="mt-4 flex gap-4">
           <button
             type="button"
@@ -109,7 +109,7 @@ const Login = () => {
           </button>
           <button
             type="button"
-            onClick={() => autoLogin("nafisahamed14@gmail.com", "123456")}
+            onClick={() => autoLogin("nabil@gmail.com", "123456")}
             className="flex-1 rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
           >
             User Credential

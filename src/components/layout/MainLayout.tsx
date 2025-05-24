@@ -18,6 +18,7 @@ const MainLayout = () => {
             }}
           >
             <Outlet />
+            
           </div>
         </Content>
       </Layout>
