@@ -15,7 +15,6 @@ const mealItems = [
   { _id: "679ba491694c5cd16d2a7f10", name: "Nisan" },
   { _id: "679927ff2ec5426c78226a8e", name: "Ram" },
   { _id: "679927f62ec5426c78226a8c", name: "Audi" },
- 
 ];
 
 const Navbar = () => {
@@ -34,7 +33,6 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-500 text-white sticky top-0 z-20">
       <div className="container mx-auto flex justify-between items-center p-4">
-      
         <div>
           <a href="/">
             <img
@@ -44,7 +42,6 @@ const Navbar = () => {
             />
           </a>
         </div>
-
 
         <div className="hidden md:flex md:justify-center items-center gap-4">
           <a href="/" className="hover:text-gray-300">
@@ -113,8 +110,7 @@ const Navbar = () => {
         </div>
       </div>
 
-
-      {menuOpen && (
+      {/* {menuOpen && (
         <div className="md:hidden bg-gray-700 text-white p-4 space-y-2">
           <a href="/" className="block py-2 hover:text-gray-300">
             Home
@@ -162,6 +158,60 @@ const Navbar = () => {
             <button
               onClick={handleLogout}
               className="w-full border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      )} */}
+      {menuOpen && (
+        <div className="md:hidden bg-gray-700 text-white p-4 flex flex-col gap-2">
+          <a href="/" className="py-2 hover:text-gray-300">
+            Home
+          </a>
+          <a href="/allproduct" className="py-2 hover:text-gray-300">
+            All Product
+          </a>
+          <details className="group">
+            <summary className="flex justify-between items-center cursor-pointer py-2 hover:text-gray-300">
+              Products
+              <ChevronDown size={16} />
+            </summary>
+            <div className="ml-4 mt-2 flex flex-col gap-1">
+              {mealItems.map((meal) => (
+                <a
+                  key={meal._id}
+                  href={`/mealcard/${meal._id}`}
+                  className="hover:text-gray-300"
+                >
+                  {meal.name}
+                </a>
+              ))}
+            </div>
+          </details>
+          <a href="/dashboard" className="py-2 hover:text-gray-300">
+            Dashboard
+          </a>
+          <a href="/contact" className="py-2 hover:text-gray-300">
+            Contact Us
+          </a>
+          <a href="/about" className="py-2 hover:text-gray-300">
+            About
+          </a>
+          {!user && (
+            <>
+              <a href="/login" className="py-2 hover:text-gray-300">
+                Login
+              </a>
+              <a href="/register" className="py-2 hover:text-gray-300">
+                Register
+              </a>
+            </>
+          )}
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
             >
               Logout
             </button>

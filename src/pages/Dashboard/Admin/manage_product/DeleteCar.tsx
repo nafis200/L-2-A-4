@@ -1,26 +1,42 @@
 import { useState } from "react";
-import { Button, Table, Modal, Form } from "antd";
+import { Button, Table, Modal, Form, type TableProps } from "antd";
 import { toast } from "sonner";
 import { TTableData } from "../../../Allproduct";
-import { useDeleteCarMutation, useGetAllCarsQuery } from "../../../../redux/features/cars/carsManagement";
+import {
+  useDeleteCarMutation,
+  useGetAllCarsQuery,
+} from "../../../../redux/features/cars/carsManagement";
+
+import '../../dashboard.css'
 
 const DeleteCar = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [carToDelete, setCarToDelete] = useState<TTableData | null>(null);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
   const [form] = Form.useForm();
   const [updateCar] = useDeleteCarMutation();
 
-    const { data: CarData, isFetching } = useGetAllCarsQuery([]);
-  
-    const tableData = CarData?.data?.map(({ _id, price, model, brand, category, quantity }) => ({
+  const {
+    data: CarData,
+    isFetching,
+  } = useGetAllCarsQuery([
+    { name: "page", value: pagination.current.toString() },
+    { name: "limit", value: pagination.pageSize.toString() },
+  ]);
+
+  const tableData = CarData?.data?.map(
+    ({ _id, price, model, brand, category, quantity }) => ({
       key: _id,
       price,
       model,
       brand,
       category,
-      quantity
-    }));
-  
+      quantity,
+    })
+  );
 
   const handleDeleteClick = (record: TTableData) => {
     setCarToDelete(record);
@@ -33,10 +49,10 @@ const DeleteCar = () => {
         toast.success("Car deleted successfully!");
         setIsDeleteModalVisible(false);
         setCarToDelete(null);
-         await updateCar({
-            order_id:values.carId
-         })
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        await updateCar({
+          order_id: values.carId,
+        });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         toast.error("Delete failed");
       }
@@ -83,18 +99,35 @@ const DeleteCar = () => {
       ),
     },
   ];
+
+  const onChange: TableProps<TTableData>["onChange"] = (paginationConfig) => {
+      const { current, pageSize } = paginationConfig;
+      setPagination({
+        current: current ?? 1,
+        pageSize: pageSize ?? 10,
+      });
+    };
   
- 
 
   return (
     <div className="px-5">
-      <Table
-        loading={isFetching}
-        columns={columns}
-        dataSource={tableData}
-        scroll={{ x: 800 }}
-        rowKey="key"
-      />
+         <Table
+               className="custom-pagination"
+              loading={isFetching}
+              columns={columns}
+              dataSource={tableData}
+              pagination={{
+                current: pagination.current,
+                pageSize: pagination.pageSize,
+                total: CarData?.meta?.total,
+                showSizeChanger: true,
+                pageSizeOptions: ["2", "4", "6", "8", "10"],
+              }}
+              onChange={onChange}
+              scroll={{ x: 800 }}
+              
+              rowKey="key"
+            />
       <Modal
         title="Confirm Deletion"
         visible={isDeleteModalVisible}

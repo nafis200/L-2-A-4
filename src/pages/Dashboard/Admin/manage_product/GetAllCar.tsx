@@ -4,7 +4,7 @@ import type { TQueryParam } from "../../../../types";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Table, type TableColumnsType, type TableProps } from "antd";
 import type { TTableData } from "../../../Allproduct";
-
+import '../../dashboard.css'
 
 const GetAllCar = () => {
     const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
@@ -165,6 +165,7 @@ const GetAllCar = () => {
       />
 
       <Table
+         className="custom-pagination"
         loading={isFetching}
         columns={columns}
         dataSource={tableData}

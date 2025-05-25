@@ -21,11 +21,6 @@ export const adminChildren = [
         element:<AdminProfile/>
     },
     {
-        name:'Manage_user',
-        path:'manage_user',
-        element:<Acctivate_account/>
-    },
-    {
         name:'Manage Product',
         children:[
             {
@@ -64,5 +59,10 @@ export const adminChildren = [
                 element:<Calculate_revenue/>
             }
         ]
-    }
+    },
+    {
+        name:'Manage_user',
+        path:'manage_user',
+        element:<Acctivate_account/>
+    },
 ]

@@ -1,8 +1,13 @@
 import { Button, message, Spin } from "antd";
 import { MinusOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
 
-import { decrementOrderQuantity, incrementOrderQuantity, orderedProductsSelector, removeProduct } from '../redux/features/cars/carSlice';
+import {
+  decrementOrderQuantity,
+  incrementOrderQuantity,
+  orderedProductsSelector,
+  removeProduct,
+} from "../redux/features/cars/carSlice";
 import { useGetSingleCarsQuery } from "../redux/features/cars/carsManagement";
 
 const OrderProduct = () => {
@@ -10,24 +15,26 @@ const OrderProduct = () => {
   const products = useAppSelector(orderedProductsSelector);
 
   const product = products?.[0];
-  
-  
+
   const { data: CarData, isFetching } = useGetSingleCarsQuery(product?.key, {
-    skip: !product?.key, 
+    skip: !product?.key,
   });
 
-  if (!product) return <div className="min-h-screen flex justify-center text-red-800">No products found.</div>;
+  if (!product)
+    return (
+      <div className="min-h-screen flex justify-center text-red-800">
+        No products found.
+      </div>
+    );
   if (isFetching) {
-      return (
-        <div className="flex justify-center items-center min-h-screen">
-          <Spin size="large" />
-        </div>
-      );
-    }
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spin size="large" />
+      </div>
+    );
+  }
 
-   const quantity = CarData?.data?.[0]?.quantity;
-
-
+  const quantity = CarData?.data?.[0]?.quantity;
 
   const productWithImage = {
     ...product,
@@ -37,13 +44,12 @@ const OrderProduct = () => {
   };
 
   const handleIncrementQuantity = (id: string) => {
-  
-  if ((quantity ?? 0) >= product.orderQuantity + 1) {
-    dispatch(incrementOrderQuantity(id));
-  } else {
-    message.error("Out of stock");
-  }
-};
+    if ((quantity ?? 0) >= product.orderQuantity + 1) {
+      dispatch(incrementOrderQuantity(id));
+    } else {
+      message.error("Out of stock");
+    }
+  };
 
   const handleDecrementQuantity = (id: string) => {
     dispatch(decrementOrderQuantity(id));
@@ -65,21 +71,32 @@ const OrderProduct = () => {
         width: "70%",
       }}
     >
-      <div style={{ width: 150, height: 150, overflow: "hidden", borderRadius: 8 }}>
+      <div className="w-full max-w-[150px] aspect-square overflow-hidden rounded-lg">
         <img
           src={productWithImage.image}
           alt={productWithImage.name}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          className="w-full h-full object-cover"
           onError={(e) => {
             (e.target as HTMLImageElement).src = "/default-image.png";
           }}
         />
       </div>
+
       <div style={{ flexGrow: 1 }}>
-        <h2><span className="font-bold">Model: </span> {productWithImage.name}</h2>
-        <h2><span className="font-bold">Brand: </span> {productWithImage.brand}</h2>
+        <h2>
+          <span className="font-bold">Model: </span> {productWithImage.name}
+        </h2>
+        <h2>
+          <span className="font-bold">Brand: </span> {productWithImage.brand}
+        </h2>
         <hr style={{ margin: "8px 0" }} />
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <div>
             <strong>Price:</strong> {productWithImage.price}
           </div>

@@ -15,6 +15,7 @@ import {
   useAlluserQuery,
   useOrderRevenueQuery,
 } from "../../redux/features/cars/carsManagement";
+import { useEffect, useState } from "react";
 
 const { Title } = Typography;
 
@@ -25,6 +26,23 @@ const DashboardHomeWithChart = () => {
     useAlluserQuery(undefined);
   const { data: RevenueData, isFetching: loadingRevenue } =
     useOrderRevenueQuery(undefined);
+  
+      const [radius, setRadius] = useState({ inner: 70, outer: 100 });
+    
+      useEffect(() => {
+        const handleResize = () => {
+          if (window.innerWidth < 640) {
+            setRadius({ inner: 40, outer: 60 });
+          } else if (window.innerWidth < 1024) {
+            setRadius({ inner: 60, outer: 80 });
+          } else {
+            setRadius({ inner: 70, outer: 100 });
+          }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
 
   const totalUsers = AlluserData?.data?.length || 0;
   const totalRevenue = RevenueData?.data?.totalRevenue || 0;
@@ -101,34 +119,34 @@ const DashboardHomeWithChart = () => {
         <Title level={4} style={{ marginBottom: 20 }}>
           Amount vs Users
         </Title>
-        <div className="w-full   h-[300px] sm:h-[280px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                innerRadius={70}
-                outerRadius={100}
-                fill="#8884d8"
-                paddingAngle={5}
-                dataKey="value"
-                label={({ name, percent }) =>
-                  `${name}: ${(percent * 100).toFixed(0)}%`
-                }
-              >
-                {data.map((_, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value: number) => value.toLocaleString()} />
-              <Legend verticalAlign="bottom" height={36} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+        <div className="w-full max-w-[500px] mx-auto h-auto">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={data}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={radius.inner}
+                        outerRadius={radius.outer}
+                        fill="#8884d8"
+                        paddingAngle={5}
+                        dataKey="value"
+                        label={({ name, percent }) =>
+                          `${name}: ${(percent * 100).toFixed(0)}%`
+                        }
+                      >
+                        {data.map((_, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(value: number) => value.toLocaleString()} />
+                      <Legend verticalAlign="bottom" height={36} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
       </Card>
     </div>
   );

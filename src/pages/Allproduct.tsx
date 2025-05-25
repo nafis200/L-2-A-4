@@ -13,6 +13,7 @@ import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaDollarSign, FaPlusCircle } from "react-icons/fa";
 import FilterPanel from "./Filtered";
 import { motion } from "framer-motion";
+import '../pages/Dashboard/dashboard.css'
 
 export type TTableData = Omit<
   Pick<Car, "price" | "model" | "brand" | "category" | "quantity" | "image">,
@@ -215,8 +216,9 @@ const AllProduct = () => {
       )}
 
       {!isFetching && (
-        <div className="pagination-container mt-5 mb-5 flex justify-center">
+        <div className="mt-5 mb-5 flex justify-center flex-col md:flex-row">
           <Pagination
+            className="custom-pagination"
             current={pagination.current}
             pageSize={pagination.pageSize}
             total={CarData?.meta?.total}

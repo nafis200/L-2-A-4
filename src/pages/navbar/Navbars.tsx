@@ -45,8 +45,12 @@ const Navbars = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           <div className="hidden md:flex gap-4 items-center">
-            <a href="/" className="hover:text-gray-300">Home</a>
-            <a href="/allproduct" className="hover:text-gray-300">All Product</a>
+            <a href="/" className="hover:text-gray-300">
+              Home
+            </a>
+            <a href="/allproduct" className="hover:text-gray-300">
+              All Product
+            </a>
 
             <div className="relative">
               <button
@@ -71,14 +75,24 @@ const Navbars = ({ children }: { children: React.ReactNode }) => {
               )}
             </div>
 
-            <a href="/dashboard" className="hover:text-gray-300">Dashboard</a>
-            <a href="/contact" className="hover:text-gray-300">Contact Us</a>
-            <a href="/about" className="hover:text-gray-300">About</a>
+            <a href="/dashboard" className="hover:text-gray-300">
+              Dashboard
+            </a>
+            <a href="/contact" className="hover:text-gray-300">
+              Contact Us
+            </a>
+            <a href="/about" className="hover:text-gray-300">
+              About
+            </a>
 
             {!user && (
               <>
-                <a href="/login" className="hover:text-gray-300">Login</a>
-                <a href="/register" className="hover:text-gray-300">Register</a>
+                <a href="/login" className="hover:text-gray-300">
+                  Login
+                </a>
+                <a href="/register" className="hover:text-gray-300">
+                  Register
+                </a>
               </>
             )}
 
@@ -99,7 +113,7 @@ const Navbars = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
 
-        {menuOpen && (
+        {/* {menuOpen && (
           <div className="md:hidden bg-gray-700 text-white p-4 space-y-2">
             <a href="/" className="block py-2 hover:text-gray-300">Home</a>
             <a href="/allproduct" className="hover:text-gray-300">All Product</a>
@@ -137,6 +151,60 @@ const Navbars = ({ children }: { children: React.ReactNode }) => {
               <button
                 onClick={handleLogout}
                 className="w-full border border-white text-white px-4 py-2 mt-4 rounded hover:bg-gray-600"
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        )} */}
+        {menuOpen && (
+          <div className="md:hidden bg-gray-700 text-white p-4 flex flex-col gap-2">
+            <a href="/" className="py-2 hover:text-gray-300">
+              Home
+            </a>
+            <a href="/allproduct" className="py-2 hover:text-gray-300">
+              All Product
+            </a>
+            <details className="group">
+              <summary className="flex justify-between items-center cursor-pointer py-2 hover:text-gray-300">
+                Products
+                <ChevronDown size={16} />
+              </summary>
+              <div className="ml-4 mt-2 flex flex-col gap-1">
+                {mealItems.map((meal) => (
+                  <a
+                    key={meal._id}
+                    href={`/mealcard/${meal._id}`}
+                    className="hover:text-gray-300"
+                  >
+                    {meal.name}
+                  </a>
+                ))}
+              </div>
+            </details>
+            <a href="/dashboard" className="py-2 hover:text-gray-300">
+              Dashboard
+            </a>
+            <a href="/contact" className="py-2 hover:text-gray-300">
+              Contact Us
+            </a>
+            <a href="/about" className="py-2 hover:text-gray-300">
+              About
+            </a>
+            {!user && (
+              <>
+                <a href="/login" className="py-2 hover:text-gray-300">
+                  Login
+                </a>
+                <a href="/register" className="py-2 hover:text-gray-300">
+                  Register
+                </a>
+              </>
+            )}
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="border border-white text-white px-4 py-2 rounded hover:bg-gray-600"
               >
                 Logout
               </button>

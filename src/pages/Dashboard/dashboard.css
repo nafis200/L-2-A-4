@@ -1,0 +1,45 @@
+
+.custom-pagination .ant-table-pagination {
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+
+@media (max-width: 600px) {
+  /* .custom-pagination .ant-pagination {
+    flex-direction: row;
+    align-items: center;
+  } */
+
+  .custom-pagination .ant-pagination-options {
+    margin-top: 8px; 
+    display: flex;
+    justify-content: end;
+    width: 100%;
+   
+  }
+}
+
+
+/* <div class="ant-table-pagination">       
+  <ul class="ant-pagination">           
+    <li>1</li>
+    <li>2</li>
+    <li>Next</li>
+  </ul>
+</div> */
+
+
+/* <div class="ant-table-pagination">
+  <ul class="ant-pagination">
+    <li>1</li>
+    <li>2</li>
+    ...
+  </ul>
+  <div class="ant-pagination-options">
+    <select>...</select>       <!-- page size changer -->
+    <input /> Go to page       <!-- optional jumper -->
+  </div>
+</div> */
